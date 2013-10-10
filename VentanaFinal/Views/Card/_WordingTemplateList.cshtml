@@ -1,0 +1,27 @@
+﻿@model List<VentanaFinal.Infrastructure.Models.Cards.WordingTemplateModel>
+
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+    <div class="list-group">
+        @foreach (var template in Model)
+        {
+            <a href="#" class="list-group-item">@template.TemplateName</a>
+        }
+    </div>
+    }
+    else
+    {
+    <p>No Wording Templates Found</p>
+    }
+}
+else
+{
+    <p>No Wording Templates Found</p>
+}
+<div id="new-wording-template-textbox-container" style="display: none;">
+    <input type="text" class="form-control pull-left" id="new-wording-template-textbox"
+        style="width: 80%; margin-right: 10px;" placeholder="New Wording Template" />
+    <input type="button" class="btn btn-success" value="Add +" onclick="submitNewWordingTemplate(this)"/>
+</div>

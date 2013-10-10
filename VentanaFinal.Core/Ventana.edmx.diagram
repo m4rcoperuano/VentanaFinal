@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cb12190734ec4b58b7d4a098dd8046bf" Name="Diagram1" >
+        <EntityTypeShape EntityType="VentanaCardsFinalModel.UserProfile" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="VentanaCardsFinalModel.webpages_Membership" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="VentanaCardsFinalModel.webpages_OAuthMembership" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="VentanaCardsFinalModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="4.875" />
+        <AssociationConnector Association="VentanaCardsFinalModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="VentanaCardsFinalModel.Card_WordingTemplates" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="VentanaCardsFinalModel.Card_WordingTemplates_TemplateFields" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="VentanaCardsFinalModel.Card" Width="1.5" PointX="0.75" PointY="1.125" />
+        <AssociationConnector Association="VentanaCardsFinalModel.FK_Card_WordingTemplates_Cards" />
+        <AssociationConnector Association="VentanaCardsFinalModel.FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates" />
+        <EntityTypeShape EntityType="VentanaCardsFinalModel.Company" Width="1.5" PointX="5.8728121993470994" PointY="7.6755192166545987" />
+        <AssociationConnector Association="VentanaCardsFinalModel.FK_UserProfile_Company" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

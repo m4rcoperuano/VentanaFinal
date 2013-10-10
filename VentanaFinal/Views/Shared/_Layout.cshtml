@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Ventana Cards - @ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Resources/Bootstrap3/css/bootstrap.min.css")
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/Resources/Bootstrap3/js/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/global.js")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-default navbar-custom" role="navigation">
+            <div class="container">
+                <ul class="nav navbar-right navbar-nav">
+                    <li id="nav-home-page">
+                        <a href="@Url.Action("Index", "Home")">Home <b class="caret"></b></a>
+                    </li>
+                    <li>
+                        <a href="#">Services <b class="caret"></b></a>
+                    </li>
+                    <li>
+                        <a href="#">Gallery <b class="caret"></b></a>
+                    </li>
+                    <li id="nav-account" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            @if (WebSecurity.IsAuthenticated && Roles.IsUserInRole("Admin"))
+                            {
+                                <li>
+                                    <a href="@Url.Action("Logout", "Account")">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("Login", "Account")">Login</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Register", "Account")">Register</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    @if (WebSecurity.IsAuthenticated && Roles.IsUserInRole("Admin"))
+                    {
+                        <li id="nav-admin" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="@Url.Action("Create", "Card")">Create New Card</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    <li>
+                        <a href="#">Contact </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="ventana-title-header">
+            <div class="container">
+                <div id="logo-img">
+                </div>
+                <span id="ventana-title">Ventana
+                    <span id="ventana-subtitle">personalized design
+                    </span>
+                </span>
+            </div>
+        </div>
+    </header>
+    <div style="margin-top: 10px;"></div>
+
+    @RenderBody()
+</body>
+</html>

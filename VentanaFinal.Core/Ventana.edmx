@@ -1,0 +1,498 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VentanaCardsFinalModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="VentanaCardsFinalModelStoreContainer">
+          <EntitySet Name="Card_WordingTemplates" EntityType="VentanaCardsFinalModel.Store.Card_WordingTemplates" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Card_WordingTemplates_TemplateFields" EntityType="VentanaCardsFinalModel.Store.Card_WordingTemplates_TemplateFields" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Cards" EntityType="VentanaCardsFinalModel.Store.Cards" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Company" EntityType="VentanaCardsFinalModel.Store.Company" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfile" EntityType="VentanaCardsFinalModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_Membership" EntityType="VentanaCardsFinalModel.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="VentanaCardsFinalModel.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_Roles" EntityType="VentanaCardsFinalModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="VentanaCardsFinalModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Card_WordingTemplates_Cards" Association="VentanaCardsFinalModel.Store.FK_Card_WordingTemplates_Cards">
+            <End Role="Cards" EntitySet="Cards" />
+            <End Role="Card_WordingTemplates" EntitySet="Card_WordingTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates" Association="VentanaCardsFinalModel.Store.FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates">
+            <End Role="Card_WordingTemplates" EntitySet="Card_WordingTemplates" />
+            <End Role="Card_WordingTemplates_TemplateFields" EntitySet="Card_WordingTemplates_TemplateFields" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="VentanaCardsFinalModel.Store.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserId" Association="VentanaCardsFinalModel.Store.fk_UserId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_Company" Association="VentanaCardsFinalModel.Store.FK_UserProfile_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Card_WordingTemplates">
+          <Key>
+            <PropertyRef Name="id_wording_template" />
+          </Key>
+          <Property Name="id_wording_template" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="fk_card" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Card_WordingTemplates_TemplateFields">
+          <Key>
+            <PropertyRef Name="id_wording_template_field" />
+          </Key>
+          <Property Name="id_wording_template_field" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FieldName" Type="nvarchar" Nullable="false" MaxLength="70" />
+          <Property Name="FieldType" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="DefaultValue" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="xPos" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="yPos" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Width" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="Height" Type="decimal" Nullable="false" Scale="4" />
+          <Property Name="fk_wording_template" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cards">
+          <Key>
+            <PropertyRef Name="id_card" />
+          </Key>
+          <Property Name="id_card" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CardName" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="FeaturedImage" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="FrontImage" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="BackImage" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="id_company" />
+          </Key>
+          <Property Name="id_company" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="nvarchar" Nullable="false" MaxLength="75" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
+          <Property Name="fk_company" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="ProviderUserId" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Card_WordingTemplates_Cards">
+          <End Role="Cards" Type="VentanaCardsFinalModel.Store.Cards" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Card_WordingTemplates" Type="VentanaCardsFinalModel.Store.Card_WordingTemplates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cards">
+              <PropertyRef Name="id_card" />
+            </Principal>
+            <Dependent Role="Card_WordingTemplates">
+              <PropertyRef Name="fk_card" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates">
+          <End Role="Card_WordingTemplates" Type="VentanaCardsFinalModel.Store.Card_WordingTemplates" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Card_WordingTemplates_TemplateFields" Type="VentanaCardsFinalModel.Store.Card_WordingTemplates_TemplateFields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Card_WordingTemplates">
+              <PropertyRef Name="id_wording_template" />
+            </Principal>
+            <Dependent Role="Card_WordingTemplates_TemplateFields">
+              <PropertyRef Name="fk_wording_template" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="VentanaCardsFinalModel.Store.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="VentanaCardsFinalModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserId">
+          <End Role="UserProfile" Type="VentanaCardsFinalModel.Store.UserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="VentanaCardsFinalModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_Company">
+          <End Role="Company" Type="VentanaCardsFinalModel.Store.Company" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfile" Type="VentanaCardsFinalModel.Store.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="id_company" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="fk_company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VentanaCardsFinalModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="VentanaEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="UserProfiles" EntityType="VentanaCardsFinalModel.UserProfile" />
+          <EntitySet Name="webpages_Membership" EntityType="VentanaCardsFinalModel.webpages_Membership" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="VentanaCardsFinalModel.webpages_OAuthMembership" />
+          <EntitySet Name="webpages_Roles" EntityType="VentanaCardsFinalModel.webpages_Roles" />
+          <AssociationSet Name="webpages_UsersInRoles" Association="VentanaCardsFinalModel.webpages_UsersInRoles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <EntitySet Name="Card_WordingTemplates" EntityType="VentanaCardsFinalModel.Card_WordingTemplates" />
+          <EntitySet Name="Card_WordingTemplates_TemplateFields" EntityType="VentanaCardsFinalModel.Card_WordingTemplates_TemplateFields" />
+          <EntitySet Name="Cards" EntityType="VentanaCardsFinalModel.Card" />
+          <AssociationSet Name="FK_Card_WordingTemplates_Cards" Association="VentanaCardsFinalModel.FK_Card_WordingTemplates_Cards">
+            <End Role="Card" EntitySet="Cards" />
+            <End Role="Card_WordingTemplates" EntitySet="Card_WordingTemplates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates" Association="VentanaCardsFinalModel.FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates">
+            <End Role="Card_WordingTemplates" EntitySet="Card_WordingTemplates" />
+            <End Role="Card_WordingTemplates_TemplateFields" EntitySet="Card_WordingTemplates_TemplateFields" />
+          </AssociationSet>
+          <EntitySet Name="Companies" EntityType="VentanaCardsFinalModel.Company" />
+          <AssociationSet Name="FK_UserProfile_Company" Association="VentanaCardsFinalModel.FK_UserProfile_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Type="Int32" Name="id_user" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="webpages_Roles" Relationship="VentanaCardsFinalModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+          <Property Type="Int32" Name="fk_company" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="VentanaCardsFinalModel.FK_UserProfile_Company" FromRole="UserProfile" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Precision="3" />
+          <Property Type="String" Name="ConfirmationToken" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsConfirmed" />
+          <Property Type="DateTime" Name="LastPasswordFailureDate" Precision="3" />
+          <Property Type="Int32" Name="PasswordFailuresSinceLastSuccess" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PasswordChangedDate" Precision="3" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordVerificationToken" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Type="String" Name="Provider" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProviderUserId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfiles" Relationship="VentanaCardsFinalModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="webpages_UsersInRoles">
+          <End Type="VentanaCardsFinalModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
+          <End Type="VentanaCardsFinalModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Card_WordingTemplates">
+          <Key>
+            <PropertyRef Name="id_wording_template" />
+          </Key>
+          <Property Type="Int32" Name="id_wording_template" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="TemplateName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="fk_card" Nullable="false" />
+          <NavigationProperty Name="Card" Relationship="VentanaCardsFinalModel.FK_Card_WordingTemplates_Cards" FromRole="Card_WordingTemplates" ToRole="Card" />
+          <NavigationProperty Name="Card_WordingTemplates_TemplateFields" Relationship="VentanaCardsFinalModel.FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates" FromRole="Card_WordingTemplates" ToRole="Card_WordingTemplates_TemplateFields" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="UpdatedOn" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="DeletedOn" Precision="3" />
+        </EntityType>
+        <EntityType Name="Card_WordingTemplates_TemplateFields">
+          <Key>
+            <PropertyRef Name="id_wording_template_field" />
+          </Key>
+          <Property Type="Int32" Name="id_wording_template_field" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="FieldName" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FieldType" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DefaultValue" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="xPos" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="yPos" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Width" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Height" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Int32" Name="fk_wording_template" Nullable="false" />
+          <NavigationProperty Name="Card_WordingTemplates" Relationship="VentanaCardsFinalModel.FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates" FromRole="Card_WordingTemplates_TemplateFields" ToRole="Card_WordingTemplates" />
+        </EntityType>
+        <EntityType Name="Card">
+          <Key>
+            <PropertyRef Name="id_card" />
+          </Key>
+          <Property Type="Int32" Name="id_card" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="CardName" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FeaturedImage" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FrontImage" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BackImage" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="UpdatedOn" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="DeletedOn" Precision="3" />
+          <NavigationProperty Name="Card_WordingTemplates" Relationship="VentanaCardsFinalModel.FK_Card_WordingTemplates_Cards" FromRole="Card" ToRole="Card_WordingTemplates" />
+          <Property Type="Int32" Name="CreatedBy" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Card_WordingTemplates_Cards">
+          <End Type="VentanaCardsFinalModel.Card" Role="Card" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="VentanaCardsFinalModel.Card_WordingTemplates" Role="Card_WordingTemplates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Card">
+              <PropertyRef Name="id_card" />
+            </Principal>
+            <Dependent Role="Card_WordingTemplates">
+              <PropertyRef Name="fk_card" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Card_WordingTemplates_TemplateFields_Card_WordingTemplates">
+          <End Type="VentanaCardsFinalModel.Card_WordingTemplates" Role="Card_WordingTemplates" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="VentanaCardsFinalModel.Card_WordingTemplates_TemplateFields" Role="Card_WordingTemplates_TemplateFields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Card_WordingTemplates">
+              <PropertyRef Name="id_wording_template" />
+            </Principal>
+            <Dependent Role="Card_WordingTemplates_TemplateFields">
+              <PropertyRef Name="fk_wording_template" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="id_company" />
+          </Key>
+          <Property Type="Int32" Name="id_company" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfiles" Relationship="VentanaCardsFinalModel.FK_UserProfile_Company" FromRole="Company" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_UserProfile_Company">
+          <End Type="VentanaCardsFinalModel.Company" Role="Company" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="VentanaCardsFinalModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="id_company" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="fk_company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VentanaCardsFinalModelStoreContainer" CdmEntityContainer="VentanaEntities">
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="VentanaCardsFinalModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="fk_company" ColumnName="fk_company" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Membership">
+            <EntityTypeMapping TypeName="VentanaCardsFinalModel.webpages_Membership">
+              <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_OAuthMembership">
+            <EntityTypeMapping TypeName="VentanaCardsFinalModel.webpages_OAuthMembership">
+              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="VentanaCardsFinalModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="VentanaCardsFinalModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="id_user" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Card_WordingTemplates">
+            <EntityTypeMapping TypeName="VentanaCardsFinalModel.Card_WordingTemplates">
+              <MappingFragment StoreEntitySet="Card_WordingTemplates">
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="fk_card" ColumnName="fk_card" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="id_wording_template" ColumnName="id_wording_template" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Card_WordingTemplates_TemplateFields">
+            <EntityTypeMapping TypeName="VentanaCardsFinalModel.Card_WordingTemplates_TemplateFields">
+              <MappingFragment StoreEntitySet="Card_WordingTemplates_TemplateFields">
+                <ScalarProperty Name="fk_wording_template" ColumnName="fk_wording_template" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="yPos" ColumnName="yPos" />
+                <ScalarProperty Name="xPos" ColumnName="xPos" />
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="FieldType" ColumnName="FieldType" />
+                <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+                <ScalarProperty Name="id_wording_template_field" ColumnName="id_wording_template_field" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cards">
+            <EntityTypeMapping TypeName="VentanaCardsFinalModel.Card">
+              <MappingFragment StoreEntitySet="Cards">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="BackImage" ColumnName="BackImage" />
+                <ScalarProperty Name="FrontImage" ColumnName="FrontImage" />
+                <ScalarProperty Name="FeaturedImage" ColumnName="FeaturedImage" />
+                <ScalarProperty Name="CardName" ColumnName="CardName" />
+                <ScalarProperty Name="id_card" ColumnName="id_card" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="VentanaCardsFinalModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="id_company" ColumnName="id_company" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>

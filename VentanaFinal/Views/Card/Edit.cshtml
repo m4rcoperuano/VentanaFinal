@@ -1,0 +1,52 @@
+﻿@model VentanaFinal.Infrastructure.Models.Cards.CardModel
+
+@{
+    ViewBag.Title = "Editing " + Model.CardName;
+}
+
+@section Scripts {
+    @Styles.Render("~/Content/cards-edit.css")
+    @Scripts.Render("~/Scripts/fabric.js")
+    @Scripts.Render("~/Scripts/CardBuilder/card-builder.core.js")
+    @Scripts.Render("~/Scripts/CardBuilder/create-card-functions.js")
+
+    <script type="text/javascript">
+        $(window).load(function () {
+            CardBuilder.Initialize("editing-card", "#default-image");
+        });
+    </script>
+}
+
+<div class="container">
+    @Html.HiddenFor(x=>x.IdCard, new { id="card-id" })
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Editing @Model.CardName
+            </h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="editing-card-container">
+                <canvas id="editing-card"></canvas>
+                <img id="default-image" src="@Model.FrontImage"/>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Wording Templates
+                        <button class="btn btn-default pull-right btn-sm" style="margin-top: -6px;" onclick="addNewWordingTemplate()">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </button>
+                    </h4>
+                </div>
+                <div class="panel-body" id="wording-template-container">
+                    @Html.Partial("_WordingTemplateList", Model.WordingTemplates, new ViewDataDictionary())
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

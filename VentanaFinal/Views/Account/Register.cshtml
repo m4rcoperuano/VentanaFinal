@@ -1,0 +1,66 @@
+﻿@model VentanaFinal.Models.Account.RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="register-container panel panel-default">
+                <div class="text-center panel-heading">
+                    <h2 class="panel-title">Register</h2>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Email, new { @class = "col-lg-4 control-label" })
+                            <div class="col-lg-8">
+                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Email" })
+                                <div class="validation-errors">
+                                    @Html.ValidationMessageFor(x => x.Email)
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Password, new { @class = "col-lg-4 control-label" })
+                            <div class="col-lg-8">
+                                @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "Password" })
+                                <div class="validation-errors">
+                                    @Html.ValidationMessageFor(x => x.Password)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.ConfirmPassword, new { @class = "col-lg-4 control-label" })
+                            <div class="col-lg-8">
+                                @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+                                <div class="validation-errors">
+                                    @Html.ValidationMessageFor(x => x.ConfirmPassword)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-4 col-lg-8">
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#nav-account').addClass('active');
+        });
+    </script>
+}

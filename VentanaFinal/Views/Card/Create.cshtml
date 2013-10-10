@@ -1,0 +1,180 @@
+﻿@model VentanaFinal.Infrastructure.Models.Cards.CardModel
+
+@{
+    ViewBag.Title = "Create Card";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="card-image-preview" class="relative">
+                <div class="div-loader"></div>
+                <img src="/Images/card-placeholder.png" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title">
+                        Card Creation
+                    </h5>
+                </div>
+                
+                <div class="panel-body">
+                    @using (Html.BeginForm("Create", "Card", FormMethod.Post, new { @class = "form-horizontal", enctype="multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.CardName, new { @class = "col-lg-4 col-md-4 control-label" })
+                            <div class="col-lg-8 col-md-8">
+                                @Html.TextBoxFor(x => x.CardName, new { @class = "form-control", placeholder = "Card Name" })
+                                <div class="validation-errors">
+                                    @Html.ValidationMessageFor(x => x.CardName)
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-4 control-label">
+                                Featured Image
+                            </label>
+                            <div class="col-lg-8 col-md-8 card-upload-file-containers">
+                                <button class="btn btn-primary" id="btn-featured-card-image" onclick="$('#featured-card-image').click();return false;">
+                                    Upload Featured Image (JPG/PNG)    
+                                </button>
+                                <div class="preview-img-thumbnail-container">
+                                    <img src=""/>
+                                </div>
+                                <input style="display:none;" type="file" id="featured-card-image" onchange="featuredCardFileAttached(this)" name="featuredCardImage"/>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-4 control-label">
+                                Front Image
+                            </label>
+                            <div class="col-lg-8 col-md-8 card-upload-file-containers">
+                                <button class="btn btn-primary" id="btn-front-card-image" onclick="$('#front-card-image').click();return false;">
+                                    Upload Front Image (JPG/PNG)    
+                                </button>
+                                <div class="preview-img-thumbnail-container">
+                                    <img src=""/>
+                                </div>
+                                <input style="display:none;" type="file" id="front-card-image" onchange="frontCardFileAttached(this)" name="frontCardImage"/>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-4 control-label">
+                                Back Image
+                            </label>
+                            <div class="col-lg-8 col-md-8 card-upload-file-containers">
+                                <button class="btn btn-primary" id="btn-back-card-image" onclick="$('#back-card-image').click();return false;">
+                                    Upload Back Image (JPG/PNG)    
+                                </button>
+                                <div class="preview-img-thumbnail-container">
+                                    <img src=""/>
+                                </div>
+                                <input style="display:none;" type="file" id="back-card-image" onchange="backCardFileAttached(this)" name="backCardImage"/>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <div class="col-lg-12 col-md-12">
+                                <button type="submit" class="btn btn-success pull-right">
+                                    Next Step >
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var __cardImagePreviewId = "#card-image-preview";
+        
+        $(document).ready(function() {
+            $('#nav-admin').addClass('active');
+            $('.preview-img-thumbnail-container').click(function() {
+                var imgSrc = $(this).find('img').attr('src');
+                if (imgSrc !== "") {
+                    $(__cardImagePreviewId).find('img').attr('src', imgSrc);
+                }
+            });
+        });
+
+        function frontCardFileAttached(fileElem) {
+            var $file = $(fileElem);
+            var $button = $('#btn-front-card-image');
+            changeText($file, $button);
+        }
+        
+        function featuredCardFileAttached(fileElem) {
+            var $file = $(fileElem);
+            var $button = $('#btn-featured-card-image');
+            changeText($file, $button);
+        }
+
+        function backCardFileAttached(fileElem) {
+            var $file = $(fileElem);
+            var $button = $('#btn-back-card-image');
+            changeText($file, $button);
+        }
+
+        function changeText($file, $button) {
+            if ($file.val() != "") {
+                AjaxLoaders.DivLoader(__cardImagePreviewId, true);
+
+                $button.text("File Attached");
+                $button.removeClass('btn-primary')
+                    .addClass('btn-info');
+
+                var fileData = $file.get(0).files[0];
+                var fd = new FormData();
+
+                fd.append("file", fileData);
+                ajaxFileUpload(fd, function(filePath) {
+                    $(__cardImagePreviewId).find("img").attr('src', filePath);
+                    $button.next('div.preview-img-thumbnail-container').find('img')
+                        .attr('src', filePath).parent('div')
+                        .show().css('display', 'inline-block');
+
+                    AjaxLoaders.DivLoader(__cardImagePreviewId, false);
+                });
+            }
+        }
+
+        //function showProgress(e) {
+        //    if (e.lengthComputable) {
+        //        var percentageLoaded = (e.loaded / e.total) * 100;
+        //        $('#upload-progress-bar').css('width', percentageLoaded + "%");
+        //    }
+        //}
+
+        function ajaxFileUpload(fileForm, cb) {
+            $.ajax({
+                url: '@Url.Action("Upload", "File")',  //Server script to process data
+                type: 'POST',
+                //xhr: function () {  // Custom XMLHttpRequest
+                //    var myXhr = $.ajaxSettings.xhr();
+                //    if (myXhr.upload) { // Check if upload property exists
+                //        myXhr.upload.addEventListener('progress', showProgress, false); // For handling the progress of the upload
+                //    }
+                //    return myXhr;
+                //},
+                // Form data
+                data: fileForm,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(filePath) {
+                    if (cb !== undefined) cb(filePath);
+                }
+            });
+        }
+
+    </script>
+}
